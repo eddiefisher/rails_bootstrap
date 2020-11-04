@@ -8,7 +8,7 @@
 
 ## Create new project
 
-* `git clone --depth=1 --branch=master git@github.com:eddiefisher/rails_bootstrap.git . && rm -rf ./dirformynewrepo/.git`
+* `git clone --depth=1 --branch=main git@github.com:eddiefisher/rails_bootstrap.git . && rm -rf ./.git`
 
 * `docker-compose run --rm --no-deps runner rails new . --force --database=postgresql`
 
