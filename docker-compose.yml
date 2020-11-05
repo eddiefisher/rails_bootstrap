@@ -1,16 +1,32 @@
 version: "3.8"
+
+x-backend: &backend
+  stdin_open: true
+  tty: true
+  volumes:
+    - .:/app:cached
+    - rails_cache:/app/tmp/cache
+    - bundle:/usr/local/bundle
+    - node_modules:/app/node_modules
+  environment: 
+    RAILS_ENV: ${RAILS_ENV:-development}
+
 services:
   postgres:
     image: postgres
+    restart: always
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: trust
+      PSQL_HISTFILE: /root/log/.psql_history
+    ports:
+      - 5432:5432
   
   web:
+    <<: *backend
     build: .
-    volumes:
-      - .:/app
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     ports:
       - "3000:3000"
@@ -18,9 +34,14 @@ services:
       - postgres
   
   runner:
+    <<: *backend
     build: .
-    volumes:
-      - .:/app
     command: /bin/zsh
-    ports:
-      - '3000:3000'
+    depends_on:
+      - postgres
+
+volumes:
+  postgres:
+  bundle:
+  node_modules:
+  rails_cache:
