@@ -29,4 +29,4 @@
 
 * `docker-compose run --rm runner rake db:migrate`
 
-* `docker-compose up`
+* `docker-compose up web`
