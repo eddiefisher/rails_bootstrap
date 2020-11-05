@@ -12,7 +12,7 @@
 
 * `git clone --depth=1 --branch=main git@github.com:eddiefisher/rails_bootstrap.git . && rm -rf ./.git`
 
-* `docker-compose run --rm --no-deps runner rails new . --force --database=postgresql`
+* `docker-compose run --rm runner rails new . --force --database=postgresql`
 
 * change config/database.yml
   ```
@@ -28,3 +28,5 @@
 * `docker-compose run --rm runner rake db:create`
 
 * `docker-compose run --rm runner rake db:migrate`
+
+* `docker-compose up`
