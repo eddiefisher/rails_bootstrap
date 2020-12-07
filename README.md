@@ -12,7 +12,9 @@
 
 * `git clone --depth=1 --branch=main git@github.com:eddiefisher/rails_bootstrap.git . && rm -rf ./.git`
 
-* `docker-compose run --rm runner rails new . --force --database=postgresql`
+* without react `docker-compose run --rm runner rails new . --force --database=postgresql -T`
+
+* or with react `docker-compose run --rm runner rails new . --force --database=postgresql -T --webpack=react --skip-coffee --skip-turbolinks`
 
 * change config/database.yml
   ```
@@ -25,8 +27,6 @@
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   ```
 
-* `docker-compose run --rm runner rake db:create`
-
-* `docker-compose run --rm runner rake db:migrate`
+* `docker-compose run --rm runner rake db:create db:migrate`
 
 * `docker-compose up web`
